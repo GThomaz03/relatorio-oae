@@ -1,0 +1,57 @@
+- **AA** — Aparelho de apoio
+- **AB** — Abóbada
+- **AC** — Acesso
+- **AD** — Aduela
+- **AL** — Muro de ala
+- **ALE** — Alma externa (caixão)
+- **ALI** — Alma interna (caixão)
+- **AP** — Apoio
+- **BÇ** — Berço
+- **BL** — Balanço longitudinal
+- **BLC** — Bloco de fundação
+- **BR** — Barreira rígida
+- **BUZ** — Buzinote
+- **BZ** — Banzo
+- **CEL** — Célula
+- **CO** — Cortina
+- **DG** — Dente gerber
+- **DI** — Diagonal
+- **DM** — Defensa metálica
+- **DR** — Drenagem
+- **EB** — Emboque
+- **ENC** — Encontro
+- **ET** — Estaca
+- **GC** — Guarda-corpos
+- **GR** — Guarda-rodas
+- **JD** — Junta de dilatação
+- **L** — Laje
+- **LB** — Laje em balanço (transversal)
+- **LI** — Laje inferior
+- **LS** — Laje superior
+- **LT** — Laje de transição
+- **MF** — Meio-fio
+- **MC** — Muro de contenção
+- **MT** — Montante
+- **P** — Pilar
+- **PA** — Parede
+- **PC** — Piso de concreto
+- **PF** — Pavimento flexível
+- **PISTA** — Pavimento flexível
+- **PIL** — Pilone
+- **PR** — Pavimento rígido
+- **PS** — Passeio
+- **SAP** — Sapata
+- **SH** — Sinalização Horizontal
+- **SJ** — Sarjeta
+- **SV** — Sinalização Vertical
+- **TA** — Talude
+- **TRE** — Treliça
+- **TUB** — Tubulão
+- **V** — Vão
+- **VA** — Valeta
+- **VL** — Viga longarina
+- **VLR** — Viga longarina de rampa (passarela)
+- **VLT** — Viga longarina de travessia (passarela)
+- **VT** — Viga transversina
+- **VTR** — Viga travessa
+- **VTRAV** — Viga de travamento

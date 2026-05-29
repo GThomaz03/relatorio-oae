@@ -1,0 +1,9 @@
+{
+  "default_report_title_template": "Relatório de Inspeção — {project_name}",
+  "bridge_location_line_template": "{project_name} — {rodovia} — — Km {km} —",
+  "photo_caption_template": "Fig. {figure_number} — {code} — {description_line}",
+  "photo_direction": "S",
+  "photo_seq_width": "3",
+  "default_bridge_prefix": "E",
+  "excel_preferred_sheet": "db_ficha"
+}

@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  --color-graphite-950: #0b1020;
+  --color-graphite-900: #111827;
+  --color-graphite-800: #1f2937;
+  --color-graphite-700: #334155;
+  --color-graphite-600: #475569;
+  --color-graphite-500: #64748b;
+  --color-graphite-400: #94a3b8;
+  --color-graphite-300: #cbd5e1;
+  --color-graphite-200: #e2e8f0;
+  --color-graphite-100: #f1f5f9;
+  --color-graphite-50: #f8fafc;
+
+  --color-petrol-900: #312e81;
+  --color-petrol-800: #3730a3;
+  --color-petrol-700: #4338ca;
+  --color-petrol-600: #4f46e5;
+  --color-petrol-500: #6366f1;
+  --color-petrol-400: #818cf8;
+  --color-petrol-300: #a5b4fc;
+  --color-petrol-200: #c7d2fe;
+  --color-petrol-100: #e0e7ff;
+  --color-petrol-50: #eef2ff;
+
+  --color-success: #059669;
+  --color-success-bg: #ecfdf5;
+  --color-warning: #d97706;
+  --color-warning-bg: #fffbeb;
+  --color-error: #dc2626;
+  --color-error-bg: #fef2f2;
+  --color-info: #4f46e5;
+  --color-info-bg: #eef2ff;
+
+  --font-sans: "Fira Sans", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", "Cascadia Code", monospace;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+    height: 100%;
+    scroll-behavior: smooth;
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-graphite-50 text-graphite-800 font-sans;
+    background-image: radial-gradient(circle at 15% 10%, #e0e7ff 0%, transparent 38%);
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* Preparação Electron/Tauri: região arrastável da titlebar nativa */
+  [data-app-drag-region] {
+    -webkit-app-region: drag;
+    app-region: drag;
+  }
+
+  [data-app-no-drag] {
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+  }
+
+  /* Electron: campos interativos devem ficar fora da região de arraste */
+  .electron-desktop input,
+  .electron-desktop textarea,
+  .electron-desktop select,
+  .electron-desktop button,
+  .electron-desktop [role="button"],
+  .electron-desktop a,
+  .electron-desktop label,
+  .electron-desktop main,
+  .electron-desktop aside {
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-graphite-300;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-graphite-400;
+  }
+
+  ::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-graphite-300) transparent;
+  }
+}

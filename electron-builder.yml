@@ -1,0 +1,32 @@
+appId: com.oae.report-generator
+productName: OAE Report Generator
+copyright: Copyright © 2026 OAE
+directories:
+  output: dist-desktop
+  buildResources: desktop/assets
+files:
+  - package.json
+  - electron/dist/**
+  - frontend/dist/**
+extraResources:
+  - from: resources/backend/oae-backend
+    to: backend
+    filter:
+      - "**/*"
+win:
+  target:
+    - nsis
+    - portable
+  icon: desktop/assets/icon.ico
+  artifactName: "${productName}-${version}-${os}-${arch}.${ext}"
+  signAndEditExecutable: false
+  forceCodeSigning: false
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: OAE Report Generator
+portable:
+  artifactName: "${productName}-${version}-portable.${ext}"
+publish: null

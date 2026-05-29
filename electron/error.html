@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Erro — OAE Report Generator</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #f8fafb;
+        color: #1f2937;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+      .card {
+        max-width: 460px;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 1.75rem;
+        box-shadow: 0 8px 24px rgba(15, 76, 92, 0.08);
+      }
+      h1 { font-size: 1.15rem; color: #b91c1c; margin-bottom: 0.75rem; }
+      p { line-height: 1.5; font-size: 0.95rem; margin-bottom: 1rem; }
+      code {
+        display: block;
+        background: #f3f4f6;
+        padding: 0.75rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        word-break: break-word;
+        margin-bottom: 1.25rem;
+      }
+      button {
+        background: #0f4c5c;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.65rem 1rem;
+        font-size: 0.95rem;
+        cursor: pointer;
+      }
+      button:hover { background: #1b6b7a; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Não foi possível iniciar o backend</h1>
+      <p>O serviço local que processa planilhas e relatórios não respondeu.</p>
+      <code id="message"></code>
+      <button type="button" id="retry">Reiniciar backend</button>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search)
+      document.getElementById('message').textContent = params.get('message') || 'Erro desconhecido'
+      document.getElementById('retry').addEventListener('click', () => {
+        window.location.href = 'app://restart'
+        window.close()
+      })
+    </script>
+  </body>
+</html>

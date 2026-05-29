@@ -1,0 +1,39 @@
+default: '{anomaly_type_clean} {prep} {structural_phrase} {locals}{face_part}{span_part}{photos_part}'
+fissura_vertical:
+  template: Fissuras com abertura de {crack_width}{modifiers_part} {prep} {structural_phrase}
+    {locals}{face_part}{span_part}{photos_part}
+fissura_mapeada:
+  template: Fissuras mapeadas {prep} {structural_phrase} {locals}{face_part}{span_part}{photos_part}
+fissura:
+  template: Fissuras com abertura de {crack_width}{modifiers_part} {prep} {structural_phrase}
+    {locals}{face_part}{span_part}{photos_part}
+erosao:
+  template: Erosão {prep} {structural_phrase} {locals}{face_part}{span_part}{photos_part}
+armadura_exposta:
+  template: Concreto disgregado com armadura exposta {prep} {structural_phrase} {locals}{face_part}{span_part}{photos_part}
+concreto_disgregado:
+  template: Concreto disgregado {prep} {structural_phrase} {locals}{face_part}{span_part}{photos_part}
+mancha_umidade:
+  template: Manchas de umidade {prep} {structural_phrase} {locals}{face_part}{photos_part}
+deslocamento:
+  template: Desplacamento {prep} {structural_phrase} {locals}{face_part}{photos_part}
+deterioracao:
+  template: Deterioração {prep} {structural_phrase} {locals}{face_part}{span_part}{photos_part}
+acumulo_detritos:
+  template: Acúmulo de detritos {prep} {structural_phrase} {locals}{face_part}{span_part}{photos_part}
+acumulo_detritos_pavimento:
+  template: Acúmulo de detritos no bordo do pavimento flexível ao longo da OAE{photos_part}
+buzinote_obstruido:
+  template: Buzinotes obstruído{photos_part}
+ausencia_taxa_refletiva:
+  template: Ausência de taxa refletiva {prep} {structural_phrase} {locals}{face_part}{photos_part}
+ausencia_taxa_refletiva_pavimento:
+  template: Ausência de taxa reflexiva no pavimento flexível{photos_part}
+encoberta_pavimento:
+  template: Lábio polimérico deteriorado encoberto pelo pavimento da junta de dilatação
+    {locals}{face_part}{photos_part}
+perfil_elastomerico:
+  template: Perfil elastomérico com descolamento na junta de dilatação {locals}{face_part}{photos_part}
+fissura_berco:
+  template: Fissuras no berço com abertura de {crack_width} na junta de dilatação
+    {locals}{face_part}{photos_part}

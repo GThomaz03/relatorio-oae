@@ -1,0 +1,145 @@
+bases:
+  fissuras_verticais:
+    label: Fissuras verticais
+    template_key: fissura_vertical
+    aliases:
+    - fissuras verticais
+    - fissura vertical
+    - fissura verticais
+    - fissuras vertical
+  fissuras_horizontais:
+    label: Fissuras horizontais
+    template_key: fissura_vertical
+    aliases:
+    - fissuras horizontais
+    - fissura horizontal
+    - fissura horizontais
+    - fissuras horizontal
+  fissuras_mapeadas:
+    label: Fissuras mapeadas
+    template_key: fissura_mapeada
+    aliases:
+    - fissuras mapeadas
+    - fissura mapeada
+    - fissuras mapeada
+  trincas:
+    label: Trincas
+    template_key: fissura
+    aliases:
+    - trincas
+    - trinca
+  fissuras:
+    label: Fissuras
+    template_key: fissura
+    aliases:
+    - fissuras
+    - fissura
+  erosao:
+    label: Erosão
+    template_key: erosao
+    aliases:
+    - erosao
+    - erosão
+  armadura_exposta:
+    label: Armadura exposta
+    template_key: armadura_exposta
+    aliases:
+    - armadura exposta
+    - armaduras expostas
+  concreto_disgregado:
+    label: Concreto disgregado
+    template_key: concreto_disgregado
+    aliases:
+    - concreto disgregado
+    - concreto segregado
+    - concretos disgregados
+  deslocamento:
+    label: Desplacamento
+    template_key: deslocamento
+    aliases:
+    - deslocamento
+    - desplacamento
+    - deslocamentos
+  deterioracao:
+    label: Deterioração
+    template_key: deterioracao
+    aliases:
+    - deterioracao
+    - deterioração
+    - deterioracoes
+  acumulo_detritos:
+    label: Acúmulo de detritos
+    template_key: acumulo_detritos
+    aliases:
+    - acumulo de detritos
+    - acúmulo de detritos
+    - acumulo detritos
+  buzinote_obstruido:
+    label: Buzinotes obstruído
+    template_key: buzinote_obstruido
+    aliases:
+    - buzinote obstruido
+    - buzinotes obstruido
+    - buzinote obstruído
+  ausencia_taxa_refletiva:
+    label: Ausência de taxa refletiva
+    template_key: ausencia_taxa_refletiva
+    aliases:
+    - ausencia de taxa refletiva
+    - ausência de taxa refletiva
+    - ausencia taxa refletiva
+    - taxa refletiva
+    - taxa reflexiva
+  encoberta_pavimento:
+    label: Encoberta pelo pavimento
+    template_key: encoberta_pavimento
+    aliases:
+    - encoberta pelo pavimento
+    - encoberta pavimento
+  perfil_elastomerico:
+    label: Perfil elastomérico
+    template_key: perfil_elastomerico
+    aliases:
+    - perfil elastomerico
+    - perfil elastomérico
+    - perfil elastomericos
+  fissura_berco:
+    label: Fissuras no berço
+    template_key: fissura_berco
+    aliases:
+    - fissuras no berco
+    - fissuras no berço
+    - fissura no berco
+    - fissura no berço
+  manchas_umidade_base:
+    label: Manchas de umidade
+    template_key: mancha_umidade
+    aliases:
+    - manchas de umidade
+    - mancha de umidade
+    - manchas umidade
+modifiers:
+  manchas_umidade:
+    label: manchas de umidade
+    aliases:
+    - manchas de umidade
+    - mancha de umidade
+    - manchas umidade
+    - mancha umidade
+    - com umidade
+    - c/ umidade
+    - c umidade
+    - umidade
+  eflorescencia:
+    label: eflorescência
+    aliases:
+    - eflorescencia
+    - eflorescência
+    - com eflorescencia
+    - com eflorescência
+    - c/ eflorescencia
+  armadura_exposta_mod:
+    label: armadura exposta
+    aliases:
+    - armadura exposta
+    - com armadura exposta

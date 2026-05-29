@@ -1,0 +1,23 @@
+{
+  "name": "oae-report-generator",
+  "version": "0.1.0",
+  "description": "Gerador de relatórios técnicos OAE — aplicativo desktop Windows",
+  "author": "OAE",
+  "private": true,
+  "main": "electron/dist/main.js",
+  "scripts": {
+    "electron:compile": "tsc -p electron/tsconfig.json && node scripts/copy-electron-assets.mjs",
+    "electron:dev": "npm run electron:compile && electron .",
+    "backend:bundle": "powershell -ExecutionPolicy Bypass -File scripts/build-backend.ps1",
+    "desktop:build": "powershell -ExecutionPolicy Bypass -File scripts/build-desktop.ps1",
+    "desktop:dist": "powershell -ExecutionPolicy Bypass -File scripts/dist-desktop.ps1",
+    "desktop:dev": "powershell -ExecutionPolicy Bypass -File scripts/dev-desktop.ps1",
+    "desktop:smoke": "powershell -ExecutionPolicy Bypass -File scripts/smoke-desktop.ps1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.3",
+    "electron": "^35.7.5",
+    "electron-builder": "^26.0.12",
+    "typescript": "~6.0.2"
+  }
+}

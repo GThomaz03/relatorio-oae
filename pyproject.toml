@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oae-report-generator"
+version = "0.1.0"
+description = "Gerador automatizado de relatórios técnicos de inspeção OAE"
+readme = "PROJECT_CONTEXT.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2",
+    "openpyxl>=3.1",
+    "pydantic>=2.6",
+    "python-docx>=1.1",
+    "docxtpl>=0.16",
+    "Pillow>=10.2",
+    "PyYAML>=6.0",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "python-multipart>=0.0.12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.1",
+]
+
+[project.scripts]
+oae-report = "backend.main:main"
+oae-api = "backend.api.server:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*"]
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["."]
