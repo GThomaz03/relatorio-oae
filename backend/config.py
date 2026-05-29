@@ -12,7 +12,7 @@ from pathlib import Path
 # Diretório do pacote Python (código)
 PACKAGE_ROOT = Path(__file__).resolve().parent
 
-# Resolvidos em _resolve_paths() conforme ambiente web/desktop
+# Resolvidos em _resolve_paths() conforme ambiente desktop (AppData) ou testes locais
 BUNDLE_ROOT: Path = PACKAGE_ROOT
 DATA_ROOT: Path = PACKAGE_ROOT.parent
 TEMPLATES_DIR: Path = PACKAGE_ROOT / "templates"
@@ -114,7 +114,7 @@ def bundle_root() -> Path:
 
 
 def data_root() -> Path:
-    """Raiz gravável (AppData no desktop; raiz do repo em dev web)."""
+    """Raiz gravável (AppData no desktop; raiz do repo em testes sem OAE_DATA_DIR)."""
     env = os.environ.get("OAE_DATA_DIR")
     if env:
         return Path(env)

@@ -35,7 +35,7 @@ The MVP will NOT include:
 - AI-generated decisions
 - image recognition
 - multi-user support
-- web frontend
+- desktop application (Electron)
 - PDF export
 
 ---
@@ -251,7 +251,7 @@ support future API integration 13. FUTURE FEATURES
 Planned
 AI-assisted writing
 PDF export
-Web interface
+Web interface (browser-only deployment)
 Review mode
 Severity classification
 OCR integration

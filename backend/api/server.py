@@ -21,7 +21,7 @@ from backend.api import workspace as ws
 from backend.core.parser_images import count_image_files
 from backend.api.serializer import build_analysis_payload, run_analysis_pipeline
 from backend.core.photo_layout import LayoutMaterializationError
-from backend.config import DEFAULT_DESCRIPTIONS, DEFAULT_TEMPLATE, is_desktop_mode, setup_logging
+from backend.config import DEFAULT_DESCRIPTIONS, DEFAULT_TEMPLATE
 from backend.core.runtime_settings import (
     DEFAULT_RUNTIME_SETTINGS,
     load_runtime_settings,
@@ -41,23 +41,13 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="OAE Report Generator API", version="0.1.0")
 
-_cors_origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:4173",
-    "http://127.0.0.1:4173",
-]
-_cors_kwargs: dict = {
-    "allow_credentials": True,
-    "allow_methods": ["*"],
-    "allow_headers": ["*"],
-}
-if is_desktop_mode() or os.environ.get("OAE_DESKTOP") == "1":
-    _cors_kwargs["allow_origins"] = ["*"]
-else:
-    _cors_kwargs["allow_origins"] = _cors_origins
-
-app.add_middleware(CORSMiddleware, **_cors_kwargs)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class PhotoLayoutItem(BaseModel):
@@ -623,12 +613,3 @@ def download_photos_zip(project_id: str) -> StreamingResponse:
     )
 
 
-def main() -> None:
-    import uvicorn
-
-    setup_logging()
-    uvicorn.run("backend.api.server:app", host="127.0.0.1", port=8000, reload=True)
-
-
-if __name__ == "__main__":
-    main()

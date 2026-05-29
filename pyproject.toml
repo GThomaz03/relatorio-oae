@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "oae-report-generator"
 version = "0.1.0"
 description = "Gerador automatizado de relatórios técnicos de inspeção OAE"
-readme = "PROJECT_CONTEXT.md"
+readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pandas>=2.2",
@@ -26,10 +26,6 @@ dev = [
     "pytest>=8.0",
     "pytest-cov>=4.1",
 ]
-
-[project.scripts]
-oae-report = "backend.main:main"
-oae-api = "backend.api.server:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

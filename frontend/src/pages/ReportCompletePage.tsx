@@ -116,7 +116,7 @@ export function ReportCompletePage() {
         <p className="mb-4 text-sm text-graphite-500">
           {savedToUserFolder
             ? 'O relatório (.docx) e a pasta fotos_relatorio foram gravados na pasta de saída selecionada no cadastro da obra. As fotos foram renomeadas na ordem do relatório (ex.: 1-IMG_0098.JPG).'
-            : 'No navegador, os arquivos são disponibilizados como download ZIP. No aplicativo desktop, selecione uma pasta de saída com caminho completo no cadastro da obra.'}
+            : 'Selecione uma pasta de saída com caminho completo no cadastro da obra para gravar o relatório e as fotos renomeadas automaticamente.'}
         </p>
 
         <div className="grid gap-3 sm:grid-cols-2">

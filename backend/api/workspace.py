@@ -5,10 +5,9 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-from backend.config import DATA_ROOT, REPORT_PHOTOS_DIR_NAME, is_desktop_mode
-from backend.config import PACKAGE_ROOT
+from backend.config import DATA_ROOT, REPORT_PHOTOS_DIR_NAME
 
-WORKSPACES_ROOT = (DATA_ROOT / "workspaces") if is_desktop_mode() else PACKAGE_ROOT.parent / "workspaces"
+WORKSPACES_ROOT = DATA_ROOT / "workspaces"
 
 
 def workspace_dir(project_id: str) -> Path:

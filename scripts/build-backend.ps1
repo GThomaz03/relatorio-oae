@@ -7,11 +7,7 @@ Write-Host "==> OAE: build backend (PyInstaller onedir)" -ForegroundColor Cyan
 
 $templatePath = Join-Path $Root "backend\templates\report_template.docx"
 if (-not (Test-Path $templatePath)) {
-    Write-Host "Template Word ausente; tentando gerar via create_template.py..." -ForegroundColor Yellow
-    python backend/scripts/create_template.py
-    if (-not (Test-Path $templatePath)) {
-        Write-Warning "report_template.docx ainda ausente. O build continua, mas a geracao de relatorios falhara sem o template."
-    }
+    throw "Template Word ausente em backend\templates\report_template.docx. Copie o template RSP para esse caminho antes do build."
 }
 
 $pyinstaller = Get-Command pyinstaller -ErrorAction SilentlyContinue

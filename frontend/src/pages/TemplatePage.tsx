@@ -95,8 +95,7 @@ export function TemplatePage() {
                 </p>
                 {needsReupload ? (
                   <p className="mt-2 text-xs text-warning">
-                    Reenvie o arquivo após recarregar a página — o conteúdo não permanece no
-                    navegador.
+                    Reenvie o arquivo após recarregar o aplicativo.
                   </p>
                 ) : null}
               </div>

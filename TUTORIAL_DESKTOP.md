@@ -10,7 +10,7 @@ Guia completo para desenvolver, empacotar e distribuir o **OAE Report Generator*
 d:\relatorio\
 ├── backend/                 # API FastAPI + pipeline de relatórios
 │   └── api/
-│       ├── server.py        # Servidor web (dev)
+│       ├── server.py        # App FastAPI (módulo compartilhado)
 │       └── server_desktop.py # Entry point desktop (porta 8765+)
 ├── frontend/                # React + Vite
 ├── electron/                # Processo principal Electron
@@ -94,13 +94,7 @@ Etapas executadas por `scripts/build-desktop.ps1`:
 
 ### 4.1 Template Word
 
-Antes do build, garanta o template:
-
-```powershell
-python backend/scripts/create_template.py
-```
-
-O arquivo deve existir em `backend/templates/report_template.docx`.
+O arquivo `backend/templates/report_template.docx` deve existir no repositório antes do build PyInstaller.
 
 ### 4.2 Instalar PyInstaller
 
@@ -232,11 +226,11 @@ python -m backend.api.server_desktop
 |----------|---------|
 | Porta ocupada | Backend tenta 8765–8774; feche instâncias antigas no Gerenciador de Tarefas |
 | Assinatura / symlink winCodeSign | Defina `$env:CSC_IDENTITY_AUTO_DISCOVERY='false'` antes do build (ja no `scripts/dist-desktop.ps1`) |
-| Template ausente | Rode `create_template.py` antes do PyInstaller |
+| Template ausente | Garanta `backend/templates/report_template.docx` no repositório antes do PyInstaller |
 | CORS no desktop | Confirme `OAE_DATA_DIR` ou `OAE_DESKTOP=1` |
 | Tela de erro ao abrir | Veja `backend.log` e `startup.log` |
 | Upload de fotos falha | Use diálogo nativo (Electron); verifique IPC no preload |
-| Sidebar ok, área principal vazia | Causa: `BrowserRouter` não funciona com `file://` no Electron. O app usa `HashRouter` quando `window.electronAPI.isDesktop`; rebuild com `npm run desktop:dist` |
+| Sidebar ok, área principal vazia | Verifique se o app usa `HashRouter` (padrão desktop); rebuild com `npm run desktop:dist` |
 | Campos não aceitam digitação/clique | Região `-webkit-app-region: drag` bloqueia inputs no Electron; versão corrigida usa `no-drag` nos campos e remove drag no desktop |
 | Fotos não aparecem na validação | URLs `/api/...` não funcionam em `file://`; versão corrigida usa URL absoluta do backend e upload direto da pasta pelo Electron |
 | Lista de anomalias cortada | Altura da virtualização corrigida (`rowHeight` e `min-h-0` no layout flex) |

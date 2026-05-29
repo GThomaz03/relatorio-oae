@@ -1,21 +1,26 @@
 import type { Project, Sentido } from '@/types/project'
 import type { DesktopUploadPaths } from '@/store/file-staging-store'
 
-const API_BASE =
-  window.electronAPI?.apiBase ?? import.meta.env.VITE_API_BASE ?? '/api'
+function apiBase(): string {
+  const base = window.electronAPI?.apiBase
+  if (!base) {
+    throw new Error('API indisponível — execute o aplicativo desktop.')
+  }
+  return base
+}
 
 /** Converte URLs relativas (/api/...) em absolutas no Electron (file://). */
 export function resolveMediaUrl(url: string | null | undefined): string | undefined {
   if (!url) return undefined
   if (url.startsWith('http://') || url.startsWith('https://')) return url
   if (url.startsWith('/api')) {
-    const origin = API_BASE.replace(/\/api\/?$/, '')
+    const origin = apiBase().replace(/\/api\/?$/, '')
     return `${origin}${url}`
   }
   if (url.startsWith('/')) {
-    return `${API_BASE.replace(/\/api\/?$/, '')}${url}`
+    return `${apiBase().replace(/\/api\/?$/, '')}${url}`
   }
-  return `${API_BASE}/${url.replace(/^\//, '')}`
+  return `${apiBase()}/${url.replace(/^\//, '')}`
 }
 
 export class ApiError extends Error {
@@ -39,7 +44,7 @@ async function parseError(response: Response): Promise<string> {
 
 export async function checkApiHealth(): Promise<boolean> {
   try {
-    const response = await fetch(`${API_BASE}/health`)
+    const response = await fetch(`${apiBase()}/health`)
     return response.ok
   } catch {
     return false
@@ -154,36 +159,10 @@ export function buildBridgeLocationLine(project: Project): string {
   return `${name} — ${rodovia} — — Km ${km} —`
 }
 
-export async function uploadProjectFiles(
-  projectId: string,
-  excel: File,
-  images: File[],
-): Promise<{ images_count: number }> {
-  const form = new FormData()
-  form.append('excel', excel, excel.name)
-  for (const image of images) {
-    form.append('images', image, image.name)
-    const relative =
-      (image as File & { webkitRelativePath?: string }).webkitRelativePath || image.name
-    form.append('relative_paths', relative)
-  }
-
-  const response = await fetch(`${API_BASE}/projects/${projectId}/upload`, {
-    method: 'POST',
-    body: form,
-  })
-
-  if (!response.ok) {
-    throw new ApiError(await parseError(response), response.status)
-  }
-  const data = (await response.json()) as { images_count?: number }
-  return { images_count: data.images_count ?? images.length }
-}
-
 export async function uploadCustomTemplate(projectId: string, template: Blob, name: string) {
   const form = new FormData()
   form.append('template', template, name)
-  const response = await fetch(`${API_BASE}/projects/${projectId}/upload-template`, {
+  const response = await fetch(`${apiBase()}/projects/${projectId}/upload-template`, {
     method: 'POST',
     body: form,
   })
@@ -193,7 +172,7 @@ export async function uploadCustomTemplate(projectId: string, template: Blob, na
 }
 
 export async function analyzeProject(projectId: string, project: Project) {
-  const response = await fetch(`${API_BASE}/projects/${projectId}/analyze`, {
+  const response = await fetch(`${apiBase()}/projects/${projectId}/analyze`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(buildProjectPayload(project)),
@@ -205,7 +184,7 @@ export async function analyzeProject(projectId: string, project: Project) {
 }
 
 export async function getManagementSettings(): Promise<ManagementSettingsResponse> {
-  const response = await fetch(`${API_BASE}/management/settings`)
+  const response = await fetch(`${apiBase()}/management/settings`)
   if (!response.ok) {
     throw new ApiError(await parseError(response), response.status)
   }
@@ -216,7 +195,7 @@ export async function updateManagementSettings(payload: {
   runtime_settings: Record<string, string>
   description_rules: Array<{ key: string; template: string }>
 }): Promise<ManagementSettingsResponse> {
-  const response = await fetch(`${API_BASE}/management/settings`, {
+  const response = await fetch(`${apiBase()}/management/settings`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -253,7 +232,7 @@ export async function generateProjectReport(
   desktopPaths?: DesktopUploadPaths,
   photoLayout?: ProjectApiPayload['photo_layout'],
 ): Promise<GenerateReportResponse> {
-  const response = await fetch(`${API_BASE}/projects/${projectId}/generate`, {
+  const response = await fetch(`${apiBase()}/projects/${projectId}/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(buildProjectPayload(project, selectedPhotos, desktopPaths, photoLayout)),
@@ -270,13 +249,11 @@ export function artifactUrl(projectId: string, kind: 'report' | 'output' | 'phot
     output: `/artifacts/output.zip`,
     photos: `/artifacts/photos.zip`,
   }
-  return `${API_BASE}/projects/${projectId}${paths[kind]}`
+  return `${apiBase()}/projects/${projectId}${paths[kind]}`
 }
 
 export async function openLocalPath(targetPath: string) {
-  if (window.electronAPI?.openPath) {
-    await window.electronAPI.openPath(targetPath)
-  }
+  await window.electronAPI.openPath(targetPath)
 }
 
 export async function downloadArtifact(
@@ -284,28 +261,21 @@ export async function downloadArtifact(
   filename?: string,
   options?: { openAfterSave?: boolean },
 ) {
-  if (window.electronAPI?.saveFile && window.electronAPI?.writeFile) {
-    const savePath = await window.electronAPI.saveFile(filename ?? 'download')
-    if (!savePath) return
-
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new ApiError(await parseError(response), response.status)
-    }
-    const buffer = await response.arrayBuffer()
-    await window.electronAPI.writeFile(savePath, buffer)
-    if (options?.openAfterSave !== false) {
-      await window.electronAPI.openPath(savePath)
-    }
-    return
+  const electron = window.electronAPI
+  if (!electron?.saveFile || !electron?.writeFile) {
+    throw new Error('Download indisponível — execute o aplicativo desktop.')
   }
 
-  const anchor = document.createElement('a')
-  anchor.href = url
-  if (filename) anchor.download = filename
-  anchor.target = '_blank'
-  anchor.rel = 'noopener noreferrer'
-  document.body.appendChild(anchor)
-  anchor.click()
-  anchor.remove()
+  const savePath = await electron.saveFile(filename ?? 'download')
+  if (!savePath) return
+
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new ApiError(await parseError(response), response.status)
+  }
+  const buffer = await response.arrayBuffer()
+  await electron.writeFile(savePath, buffer)
+  if (options?.openAfterSave !== false) {
+    await electron.openPath(savePath)
+  }
 }

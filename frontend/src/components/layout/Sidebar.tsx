@@ -180,7 +180,7 @@ export function Sidebar({ mobileOpen = false, onMobileClose }: SidebarProps) {
       </div>
 
       <div className="shrink-0 border-t border-graphite-200 px-5 py-4">
-        <p className="text-[11px] text-graphite-500">v0.1.0 · Web Preview</p>
+        <p className="text-[11px] text-graphite-500">v0.1.0 · Desktop</p>
       </div>
     </aside>
   )

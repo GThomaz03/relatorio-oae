@@ -5,7 +5,6 @@ import { Sidebar } from '@/components/layout/Sidebar'
 
 export function MainLayout() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
-  const isDesktop = Boolean(window.electronAPI?.isDesktop)
 
   return (
     <div className="flex h-full overflow-hidden bg-graphite-50">
@@ -25,7 +24,7 @@ export function MainLayout() {
 
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <header
-          {...(!isDesktop ? { 'data-app-drag-region': true } : { 'data-app-no-drag': true })}
+          data-app-no-drag
           className="sticky top-0 z-30 flex shrink-0 items-center gap-3 border-b border-graphite-200 bg-white/95 px-4 py-3 backdrop-blur-sm sm:px-6 lg:px-8"
         >
           <button

@@ -1,10 +1,5 @@
 /// <reference types="vite/client" />
 
-interface FileSystemDirectoryHandle {
-  readonly name: string
-  values(): AsyncIterableIterator<FileSystemHandle>
-}
-
 interface ElectronFilePayload {
   name: string
   path: string
@@ -39,16 +34,5 @@ interface ElectronAPI {
 }
 
 interface Window {
-  showDirectoryPicker?: (options?: {
-    mode?: 'read' | 'readwrite'
-  }) => Promise<FileSystemDirectoryHandle>
-  electronAPI?: ElectronAPI
-}
-
-interface ImportMetaEnv {
-  readonly VITE_API_BASE?: string
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv
+  electronAPI: ElectronAPI
 }

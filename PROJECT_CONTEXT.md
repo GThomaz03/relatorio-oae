@@ -2,7 +2,7 @@
 
 ## Overview
 
-OAE Report Generator is a system designed to automate the creation of technical inspection reports for OAEs (Obras de Arte Especiais).
+OAE Report Generator is a **Windows desktop application** (Electron + FastAPI) designed to automate the creation of technical inspection reports for OAEs (Obras de Arte Especiais).
 
 The current manual process involves:
 

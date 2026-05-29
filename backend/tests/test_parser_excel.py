@@ -28,14 +28,3 @@ def test_parse_excel_missing_columns(tmp_path: Path) -> None:
 def test_canonical_column_mojibake() -> None:
     assert _canonical_column_name("Nm.") == "Núm."
     assert _canonical_column_name("Vao/AP") == "Vão/AP"
-
-
-def test_parse_real_sample_if_present() -> None:
-    sample = Path("backend/samples/inspection.xlsx")
-    if not sample.is_file():
-        pytest.skip("Planilha real não disponível")
-    anomalies, issues = parse_excel(sample)
-    assert len(anomalies) > 0
-    assert anomalies[0].local
-    assert anomalies[0].image_range_start
-    assert not any(i.severity == Severity.ERROR for i in issues)

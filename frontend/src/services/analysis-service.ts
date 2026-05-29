@@ -12,7 +12,6 @@ import {
   generateProjectReport,
   resolveMediaUrl,
   uploadCustomTemplate,
-  uploadProjectFiles,
 } from '@/services/api-client'
 import { useFileStagingStore } from '@/store/file-staging-store'
 import { useProjectStore } from '@/store/project-store'
@@ -58,37 +57,20 @@ export function normalizeAnalysisResult(data: AnalysisResult): AnalysisResult {
 
 async function ensureUploaded(project: Project): Promise<number> {
   const staging = useFileStagingStore.getState()
-  const desktop = window.electronAPI
-  let imagesCount = 0
-
-  if (desktop?.uploadProjectFiles) {
-    const paths = staging.getDesktopPaths(project.id)
-    if (!paths?.excelPath || !paths?.imagesDirPath) {
-      throw new ApiError(
-        'Arquivos não encontrados. Volte ao cadastro e selecione novamente a planilha e a pasta de fotos.',
-        400,
-      )
-    }
-    const uploadResult = await desktop.uploadProjectFiles(
-      project.id,
-      paths.excelPath,
-      paths.imagesDirPath,
+  const paths = staging.getDesktopPaths(project.id)
+  if (!paths?.excelPath || !paths?.imagesDirPath) {
+    throw new ApiError(
+      'Arquivos não encontrados. Volte ao cadastro e selecione novamente a planilha e a pasta de fotos.',
+      400,
     )
-    imagesCount = uploadResult.images_count ?? 0
-  } else {
-    const excel = staging.getExcel(project.id)
-    const images = staging.getImages(project.id)
-
-    if (!excel || images.length === 0) {
-      throw new ApiError(
-        'Arquivos não encontrados na memória. Volte ao cadastro e selecione novamente a planilha e a pasta de fotos.',
-        400,
-      )
-    }
-
-    const uploadResult = await uploadProjectFiles(project.id, excel, images)
-    imagesCount = uploadResult.images_count
   }
+
+  const uploadResult = await window.electronAPI.uploadProjectFiles(
+    project.id,
+    paths.excelPath,
+    paths.imagesDirPath,
+  )
+  const imagesCount = uploadResult.images_count ?? 0
 
   if (imagesCount === 0) {
     throw new ApiError(

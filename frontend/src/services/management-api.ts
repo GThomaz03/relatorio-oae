@@ -1,7 +1,6 @@
 import { ApiError, type ManagementSettingsResponse } from '@/services/api-client'
 
-const API_BASE =
-  window.electronAPI?.apiBase ?? import.meta.env.VITE_API_BASE ?? '/api'
+const API_BASE = window.electronAPI.apiBase
 
 async function parseError(response: Response): Promise<string> {
   try {

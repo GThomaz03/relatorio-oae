@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { MainLayout } from '@/layouts/MainLayout'
 import { DashboardPage } from '@/pages/DashboardPage'
 import { ManagementPage } from '@/pages/ManagementPage'
@@ -10,20 +10,13 @@ import { ReportCompletePage } from '@/pages/ReportCompletePage'
 import { ValidationPage } from '@/pages/ValidationPage'
 import { useProjectStore } from '@/store/project-store'
 
-const Router = window.electronAPI?.isDesktop ? HashRouter : BrowserRouter
-const isDesktop = Boolean(window.electronAPI?.isDesktop)
-
 export default function App() {
   const [storeReady, setStoreReady] = useState(() => useProjectStore.persist.hasHydrated())
 
   useEffect(() => {
-    if (isDesktop) {
-      document.body.classList.add('electron-desktop')
-    }
+    document.body.classList.add('electron-desktop')
     return () => {
-      if (isDesktop) {
-        document.body.classList.remove('electron-desktop')
-      }
+      document.body.classList.remove('electron-desktop')
     }
   }, [])
 
@@ -40,7 +33,7 @@ export default function App() {
   }
 
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<DashboardPage />} />
@@ -54,6 +47,6 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
-    </Router>
+    </HashRouter>
   )
 }

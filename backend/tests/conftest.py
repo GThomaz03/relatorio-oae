@@ -108,12 +108,7 @@ def sample_template(fixtures_dir: Path) -> Path:
     if main_template.is_file():
         shutil.copy2(main_template, path)
     elif not path.exists():
-        from backend.scripts.create_template import DEFAULT_REFERENCE, create_template
-
-        try:
-            create_template(path, reference_path=DEFAULT_REFERENCE)
-        except FileNotFoundError:
-            pytest.skip("Template de referência indisponível para testes")
+        pytest.skip("Template de referência indisponível para testes")
 
     return path
 
@@ -126,12 +121,20 @@ def output_dir(tmp_path: Path) -> Path:
 
 
 @pytest.fixture(autouse=True)
+def _isolate_data_dir(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    """Isola dados de runtime dos testes em diretório temporário."""
+    from backend import config
+
+    monkeypatch.setenv("OAE_DATA_DIR", str(tmp_path / "data"))
+    config._resolve_paths()
+
+
+@pytest.fixture(autouse=True)
 def _seed_legenda_if_missing() -> None:
     """Evita legenda vazia em OAE_DATA_DIR de smoke tests anteriores."""
     from backend import config
     from backend.rules.legenda import clear_legenda_cache, load_legenda
 
-    config._resolve_paths()
     pkg_legenda = config.PACKAGE_ROOT / "rules" / "legenda.yaml"
     target = config.RULES_DIR / "legenda.yaml"
     if pkg_legenda.is_file():

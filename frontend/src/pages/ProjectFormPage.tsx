@@ -21,8 +21,6 @@ export function ProjectFormPage() {
   const updateProjectFiles = useProjectStore((s) => s.updateProjectFiles)
   const startAnalysis = useProjectStore((s) => s.startAnalysis)
   const setActiveProject = useProjectStore((s) => s.setActiveProject)
-  const setExcel = useFileStagingStore((s) => s.setExcel)
-  const setImages = useFileStagingStore((s) => s.setImages)
   const setDesktopPaths = useFileStagingStore((s) => s.setDesktopPaths)
   const isAnalyzing = useProjectStore((s) => s.isAnalyzing)
 
@@ -198,10 +196,6 @@ export function ProjectFormPage() {
               buttonLabel="Selecionar Planilha"
               fileRef={project.files.excel}
               onSelect={(fileRef) => updateProjectFiles(project.id, { excel: fileRef })}
-              onRawFiles={(files) => {
-                const file = Array.isArray(files) ? files[0] : files
-                if (file) setExcel(project.id, file)
-              }}
               onDesktopPaths={(paths) => {
                 if (paths.excelPath) {
                   setDesktopPaths(project.id, { excelPath: paths.excelPath })
@@ -227,10 +221,6 @@ export function ProjectFormPage() {
                   photoCount: extra?.photoCount,
                 })
               }
-              onRawFiles={(files) => {
-                const list = Array.isArray(files) ? files : [files]
-                setImages(project.id, list)
-              }}
               onDesktopPaths={(paths) => {
                 if (paths.imagesDirPath) {
                   setDesktopPaths(project.id, { imagesDirPath: paths.imagesDirPath })

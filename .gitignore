@@ -41,4 +41,8 @@ backend/samples/**/*.png
 !backend/samples/.gitkeep
 !backend/samples/images/.gitkeep
 
+backend/tests/fixtures/**
+!backend/tests/fixtures/.gitkeep
+!backend/tests/fixtures/images/.gitkeep
+
 .cursor/

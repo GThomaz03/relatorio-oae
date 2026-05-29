@@ -60,13 +60,9 @@ Estrutura hierárquica com estilos Word originais:
 | `{{ total_anomalies }}` | Total de anomalias |
 | `{{ total_photos }}` | Total de fotografias |
 
-## Regenerar template
+## Template Word
 
-```bash
-python backend/scripts/create_template.py
-```
-
-O script copia o DOCX de referência e substitui apenas o conteúdo dinâmico das secções de anomalias e anexo fotográfico.
+O template base fica em `backend/templates/report_template.docx`. Para alterar placeholders ou layout, edite esse arquivo diretamente (ou substitua por uma versão RSP atualizada).
 
 ## Notas de formatação (aplicada em `docx_formatting.py`)
 
